@@ -1,0 +1,15 @@
+
+# Ignore CSV, Excel, and PDF files
+*.csv
+*.xlsx
+*.pdf
+
+# Ignore outputs specifically (optional redundancy)
+outputs/*.csv
+outputs/*.xlsx
+statements/**/*.pdf
+statements/**/*.csv
+
+# Bytecode
+__pycache__/
+*.py[cod]

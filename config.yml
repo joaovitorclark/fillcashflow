@@ -1,0 +1,46 @@
+bankname: c6
+statement_format: csv
+
+cards:
+  - bank: itau
+    name: mastercard
+    last_digits: "1234"
+    due_day: 10
+    color: ["#f79645", "#fce5cd", "#f9cb9c"]
+
+  - bank: bradesco
+    name: visa
+    last_digits: "5678"
+    due_day: 20
+    color: ["#f80002", "#f4cccc", "#ea9999"]
+
+  - bank: c6
+    name: carbon
+    last_digits: "9999"
+    due_day: 5
+    color: ["#999999", "#d9d9d9", "#cccccc"]
+
+fixed_income:
+  - name: salario
+    day: 15
+    amount: 10000.00
+    account: itau
+
+  - name: aluguel
+    day: 31
+    amount: 3000.00
+    account: itau
+
+fixed_expenses:
+  - name: carro
+    day: 5
+    amount:  2753.00
+    account: itau
+  - name: internet
+    day: 5
+    amount:  150.00
+    account: itau
+  - name: assinatura
+    day: 5
+    amount:  650.00
+    account: itau
