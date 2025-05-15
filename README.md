@@ -51,8 +51,8 @@ src/
 ## 🛠️ `config.yml`
 
 ```yaml
-bankname: itau            # ou 'bradesco' ou 'c6'
-statement_format: pdf     # 'pdf' (somente Itaú) ou 'csv'
+bankname: itau         
+statement_format: pdf     
 cards:
   - bank: nubank
     name: pessoal
@@ -135,5 +135,5 @@ statement_format: csv
 
 ## 🧪 Autor
 
-Otavio Clark · `fillcash`
+JOAO VITOR CLARK 
 
