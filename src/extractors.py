@@ -32,29 +32,33 @@ class FillcashExtractor:
 
     def extract_itau_pdf(self):
         transactions = []
+
         with pdfplumber.open(self.input_path) as pdf:
             for page in pdf.pages:
                 lines = page.extract_text().split('\n')
                 for line in lines:
                     parts = line.strip().split()
-                    if len(parts) < 4:
+                    if len(parts) < 3:
                         continue
                     try:
-                        date = datetime.strptime(parts[0], "%d/%m/%Y").strftime("%Y-%m-%d")
-                        amount = float(parts[-1].replace('.', '').replace(',', '.'))
+                        date = datetime.strptime(parts[0], "%d/%m/%Y").date()
+                        amount_str = parts[-1]
+                        amount = float(amount_str.replace('.', '').replace(',', '.'))
                         description = " ".join(parts[1:-1])
-                        inflow = amount if amount > 0 else 0.0
-                        outflow = -amount if amount < 0 else 0.0
                         transactions.append({
                             "date": date,
-                            "description": description,
-                            "amount": amount,
-                            "inflow": inflow,
-                            "outflow": outflow
+                            "description": description.strip(),
+                            "amount": amount
                         })
-                    except:
+                    except Exception:
                         continue
-        self.save_output(transactions)
+
+        df = pd.DataFrame(transactions)
+        df = df[~df["description"].str.contains("SALDO DO DIA", case=False, na=False)]
+        df["inflow"] = df["amount"].apply(lambda x: x if x > 0 else 0)
+        df["outflow"] = df["amount"].apply(lambda x: -x if x < 0 else 0)
+
+        self.save_output(df)
 
     def extract_itau_csv(self):
         df = pd.read_csv(self.input_path, sep=";", encoding="utf-8", dtype=str)
